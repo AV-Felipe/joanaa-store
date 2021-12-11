@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Joana's Invoice System</title>
+
+        <link rel="stylesheet" href="style.css" />
+        <script src="script.js" charset="utf-8" defer></script>
+    </head>
+    <body>
+        <h1>JOANA'S SYSTEM</h1>
+
+        <section id="iputSystem">
+
+            <form id="invoiceInputForm">
+                <fieldset>
+                    <legend>Nova Fatura</legend>
+
+                    <label for="customerName">Nome:</label>
+                    <input id="customerName"
+                        type="text"
+                        placeholder="nome do cliente"
+                    />
+
+                    <label for="dueDate">Vencimento:</label>
+                    <input id="dueDate"
+                        type="date"
+                    />
+
+                    <label for="baseValue">Valor:</label>
+                    <input id="baseValue"
+                        type="number"
+                        placeholder="valor do documento"
+                        min="0"
+                    />
+
+                    <button id="addInvoice" type="button">Adicionar</button>
+                </fieldset>
+            </form>
+
+        </section>
+
+        <section id="listSystem">
+
+            <table id="invoiceTable">
+                <caption>Documentos emitidos</caption>
+                
+                <thead>
+                    <tr>
+                        <th scope="col">Documento</th>
+                        <th scope="col">Emissão</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Valor Original</th>
+                        <th scope="co">Vencimento</th>
+                        <th scope="col">Valor Devido</th>
+                        <th scope="col">Encargos</th>
+                    </tr>
+                </thead>
+
+                <tbody id="invoiceList">
+                    <tr class="newInvoice">
+                        <td class="invoiceNumber">123456</td>
+                        <td class="invoiceIssueDate">10-01-2021</td>
+                        <td class="invoiceCustomer">João</td>
+                        <td class="invoiceMainValue">1000</td>
+                        <td class="invoiceDueDate">11-01-2021</td>
+                        <td class="invoiceCurrentValue">1001</td>
+                        <td class="invoiceLateFee">1</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <button id="updateValues" type="button">Atualizar valores</button>
+
+        </section>
+    </body>
+</html>

@@ -1,0 +1,48 @@
+html {
+    font-size: 100%;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    background-color: grey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    margin: 30px;
+}
+
+section {
+    margin-bottom: 20px ;
+}
+
+/* INVOICE LIST */
+
+#listSystem{
+    width: 90%;
+    max-width: fit-content;
+    overflow-x: auto;
+}
+
+#invoiceTable {
+    border-collapse: collapse;
+}
+
+td, th {
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid #dddddd;
+}
+
+th {
+    padding-left: 10px;
+    padding-right: 10px;
+}
