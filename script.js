@@ -59,8 +59,13 @@ const buttonUpdateValue = document.getElementById('updateValues');
 
 const outputInvoiceList = document.getElementById('invoiceList');
 
+// EVENT LISTENERS
+
+buttonAddInvoice.addEventListener('click', saveInvoice);
+
 // FUNCTIONS
 
+// structures data for html node
 function generateInvoiceRow (invoice) {
     return(
         `
@@ -76,6 +81,23 @@ function generateInvoiceRow (invoice) {
         `
     );
 };
+
+function saveInvoice () {
+    if(document.querySelector("#invoiceInputForm-newInvoiceData legend span")){
+        document.querySelector("#invoiceInputForm-newInvoiceData legend span").remove();
+    }
+
+    //create new element on mockDB
+    if(inputFieldCustomerName.value === "" || inputFieldDueDate.value === "" || inputFieldBaseValue.value === ""){
+        document.querySelector("#invoiceInputForm-newInvoiceData legend").innerHTML += `<span class="alertMessage"> ! todos os campos devem ser preenchidos ! </span>`;
+    }else{
+        const newInvoice = new invoice(inputFieldCustomerName.value, inputFieldDueDate.value, Number(inputFieldBaseValue.value));
+        console.log(newInvoice);
+        invoiceDB.push(newInvoice);
+        outputInvoiceList.innerHTML += generateInvoiceRow(invoiceDB[invoiceDB.length - 1]);
+    }
+    
+}
 
 
 

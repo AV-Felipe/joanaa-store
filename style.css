@@ -24,6 +24,16 @@ section {
     margin-bottom: 20px ;
 }
 
+/* INVOICE INPUT */
+
+#invoiceInputForm-newInvoiceData {
+    padding: 5px;
+}
+
+.alertMessage {
+    color: red;
+}
+
 /* INVOICE LIST */
 
 #listSystem{
