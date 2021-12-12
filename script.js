@@ -58,6 +58,7 @@ const buttonAddInvoice = document.getElementById('addInvoice');
 const buttonUpdateValue = document.getElementById('updateValues');
 
 const outputInvoiceList = document.getElementById('invoiceList');
+outputInvoiceList.innerHTML = generateInvoiceRow(invoiceDB[0]);
 
 // EVENT LISTENERS
 
