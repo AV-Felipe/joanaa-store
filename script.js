@@ -54,6 +54,8 @@ const inputFieldCustomerName = document.getElementById('customerName');
 const inputFieldDueDate = document.getElementById('dueDate');
 const inputFieldBaseValue = document.getElementById('baseValue');
 
+const formInputInvoice = document.getElementById('invoiceInputForm');
+
 const buttonAddInvoice = document.getElementById('addInvoice');
 const buttonUpdateValue = document.getElementById('updateValues');
 
@@ -84,14 +86,6 @@ function generateInvoiceRow (invoice) {
     );
 };
 
-function generateInvoiceLateFee(invoice) {
-    return(
-        `
-        
-        `
-    )
-}
-
 //check if input fields are filled, add values to mock db and render them on page list
 function saveInvoice () {
     if(document.querySelector("#invoiceInputForm-newInvoiceData legend span")){
@@ -106,6 +100,7 @@ function saveInvoice () {
         console.log(newInvoice);
         invoiceDB.push(newInvoice);
         outputInvoiceList.innerHTML += generateInvoiceRow(invoiceDB[invoiceDB.length - 1]);
+        formInputInvoice.reset();
     }
     
 }
@@ -126,15 +121,18 @@ function getCurrentValues () {
             daysLate = Math.floor(daysLate / (1000 * 3600 * 24)); //converts to days, ignoring hour fractions
             console.log(daysLate);
 
-            const fineValue = oneInvoice.lateFeeRules.fine * oneInvoice.value;
-            const interestValue = (oneInvoice.lateFeeRules.interest * oneInvoice.value) * daysLate;
-            const currentValue = oneInvoice.value + fineValue + interestValue;
-            console.log(currentValue);
+            if(daysLate > 0){
+                const fineValue = oneInvoice.lateFeeRules.fine * oneInvoice.value;
+                const interestValue = (oneInvoice.lateFeeRules.interest * oneInvoice.value) * daysLate;
+                const currentValue = oneInvoice.value + fineValue + interestValue;
+                console.log(currentValue);
 
-            let documentCurrentValueList = document.querySelectorAll('#invoiceList tr .invoiceCurrentValue');
-            let documentLateFeeList = document.querySelectorAll('#invoiceList tr .invoiceLateFee');
-            documentCurrentValueList[indexCounter].innerHTML = currentValue.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'});
-            documentLateFeeList[indexCounter].innerHTML = (fineValue + interestValue).toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'});
+                let documentCurrentValueList = document.querySelectorAll('#invoiceList tr .invoiceCurrentValue');
+                let documentLateFeeList = document.querySelectorAll('#invoiceList tr .invoiceLateFee');
+                documentCurrentValueList[indexCounter].innerHTML = currentValue.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'});
+                documentLateFeeList[indexCounter].innerHTML = (fineValue + interestValue).toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'});
+            }
+            
         }else{
             console.log('em dia');
         }

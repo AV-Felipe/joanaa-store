@@ -29,6 +29,12 @@ section {
 #invoiceInputForm-newInvoiceData {
     padding: 5px;
 }
+@media (max-width: 755px){
+    #invoiceInputForm-newInvoiceData {
+        display: flex;
+        flex-direction: column;
+    }
+}
 
 .alertMessage {
     color: red;
@@ -43,6 +49,7 @@ section {
 }
 
 #invoiceTable {
+    width: 42.1875rem;
     border-collapse: collapse;
 }
 
