@@ -62,6 +62,7 @@ const outputInvoiceList = document.getElementById('invoiceList');
 // EVENT LISTENERS
 
 buttonAddInvoice.addEventListener('click', saveInvoice);
+buttonUpdateValue.addEventListener('click', getCurrentValues);
 
 // FUNCTIONS
 
@@ -82,6 +83,15 @@ function generateInvoiceRow (invoice) {
     );
 };
 
+function generateInvoiceLateFee(invoice) {
+    return(
+        `
+        
+        `
+    )
+}
+
+//check if input fields are filled, add values to mock db and render them on page list
 function saveInvoice () {
     if(document.querySelector("#invoiceInputForm-newInvoiceData legend span")){
         document.querySelector("#invoiceInputForm-newInvoiceData legend span").remove();
@@ -99,5 +109,36 @@ function saveInvoice () {
     
 }
 
+function getCurrentValues () {
+    let indexCounter = 0;
+    invoiceDB.map(oneInvoice => {
+        const stringDueDate = new Date(`${oneInvoice.dueDate} 00:00:00`); //case we dont pass thee time, with date, we get an timezone difference in our parsed date
+        const stringCurrentDate = new Date();
+        console.log(stringDueDate);
+        console.log(stringCurrentDate);
 
+        if(stringDueDate < stringCurrentDate){
+            //get the number of due days
+            console.log('atrasado');
+            let daysLate = stringCurrentDate.getTime() - stringDueDate.getTime(); //converts the timestamp to unix date value (the result is in miliseconds)
+            //console.log(daysLate);
+            daysLate = Math.floor(daysLate / (1000 * 3600 * 24)); //converts to days, ignoring hour fractions
+            console.log(daysLate);
+
+            const fineValue = oneInvoice.lateFeeRules.fine * oneInvoice.value;
+            const interestValue = (oneInvoice.lateFeeRules.interest * oneInvoice.value) * daysLate;
+            const currentValue = oneInvoice.value + fineValue + interestValue;
+            console.log(currentValue);
+
+            let documentCurrentValueList = document.querySelectorAll('#invoiceList tr .invoiceCurrentValue');
+            let documentLateFeeList = document.querySelectorAll('#invoiceList tr .invoiceLateFee');
+            documentCurrentValueList[indexCounter].innerHTML = currentValue.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'});
+            documentLateFeeList[indexCounter].innerHTML = (fineValue + interestValue).toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'});
+        }else{
+            console.log('em dia');
+        }
+
+        indexCounter++
+    });
+};
 
