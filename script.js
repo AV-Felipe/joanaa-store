@@ -59,6 +59,9 @@ const formInputInvoice = document.getElementById('invoiceInputForm');
 const buttonAddInvoice = document.getElementById('addInvoice');
 const buttonUpdateValue = document.getElementById('updateValues');
 
+const tableHeaderName = document.getElementById('clientNameColumn');
+const tableHeaderDueDate = document.getElementById('dueDateColumn');
+
 const outputInvoiceList = document.getElementById('invoiceList');
 outputInvoiceList.innerHTML = generateInvoiceRow(invoiceDB[0]);
 
@@ -66,6 +69,9 @@ outputInvoiceList.innerHTML = generateInvoiceRow(invoiceDB[0]);
 
 buttonAddInvoice.addEventListener('click', saveInvoice);
 buttonUpdateValue.addEventListener('click', getCurrentValues);
+
+tableHeaderName.addEventListener('click', sortByCustomerName);
+tableHeaderDueDate.addEventListener('click', sortByDueDate);
 
 // FUNCTIONS
 
@@ -141,20 +147,46 @@ function getCurrentValues () {
     });
 };
 
-//compare function
+//compare names function
 function compareInvoiceNames (nameA, nameB) {
-    if(nameA.customer < nameB.customer){
+    if(nameA.customer.toUpperCase() < nameB.customer.toUpperCase()){
         return -1;
     }
-    if (nameA.customer > nameB.customer){
+    if (nameA.customer.toUpperCase() > nameB.customer.toUpperCase()){
         return 1;
     }
 
     return 0;
 }
 
+
 function sortByCustomerName () {
     invoiceDB.sort(compareInvoiceNames);
+    console.log(invoiceDB);
+
+    outputInvoiceList.innerHTML = "";
+
+    invoiceDB.forEach(invoice => {
+        outputInvoiceList.innerHTML += generateInvoiceRow(invoice);
+    });
+}
+
+//compare date function
+function compareInvoiceDate (dateA, dateB) {
+    const a = new Date(`${dateA.dueDate} 00:00:00`);
+    const b = new Date(`${dateB.dueDate} 00:00:00`);
+    
+    if(a < b) {
+        return-1;
+    }
+    if(a > b) {
+        return 1;
+    }
+    return 0;
+}
+
+function sortByDueDate () {
+    invoiceDB.sort(compareInvoiceDate);
     console.log(invoiceDB);
 
     outputInvoiceList.innerHTML = "";
