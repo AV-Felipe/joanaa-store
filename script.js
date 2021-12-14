@@ -10,9 +10,20 @@ class invoice {
         this.lateFeeRules = lateFeeStandards.regularCustomer;
     }
     formatDate(){
-        const today = new Date();
+        debugger;
+        let today = new Date();
+        /*
+        the nex three lines of code may be comented do disble the utc time compensation, tha is in nedd of some more tests
+        for reference see: https://stackoverflow.com/questions/45779894/toisostring-changes-datetime-value
+        and use: https://www.epochconverter.com/
+        */
 
-        return(today.toISOString().split('T')[0]);
+        let timeOffset = today.getTime(); //pega o horário deslocado para o utc 0 no formato timestamp do unix
+        timeOffset = timeOffset - (today.getTimezoneOffset() * 60000); //ajusta o timestamp para o horário no utc do sistema mas mantendo a referÊncia utc 0
+
+        today = new Date (timeOffset); //cria o objeto date com um horrário atrasado no utc local
+        
+        return(today.toISOString().split('T')[0]); //o método toISOString desloca o UTC para 0, o que é compensado pelo atraso da operação anterior
     }
 };
 
