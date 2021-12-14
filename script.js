@@ -58,6 +58,7 @@ const formInputInvoice = document.getElementById('invoiceInputForm');
 
 const buttonAddInvoice = document.getElementById('addInvoice');
 const buttonUpdateValue = document.getElementById('updateValues');
+const buttonGetTotalSales = document.getElementById('getTotalValue');
 
 const tableHeaderName = document.getElementById('clientNameColumn');
 const tableHeaderDueDate = document.getElementById('dueDateColumn');
@@ -65,10 +66,13 @@ const tableHeaderDueDate = document.getElementById('dueDateColumn');
 const outputInvoiceList = document.getElementById('invoiceList');
 outputInvoiceList.innerHTML = generateInvoiceRow(invoiceDB[0]);
 
+const outputSalesTotal = document.getElementById('salesTotal');
+
 // EVENT LISTENERS
 
 buttonAddInvoice.addEventListener('click', saveInvoice);
 buttonUpdateValue.addEventListener('click', getCurrentValues);
+buttonGetTotalSales.addEventListener('click', getTotalSales);
 
 tableHeaderName.addEventListener('click', sortByCustomerName);
 tableHeaderDueDate.addEventListener('click', sortByDueDate);
@@ -194,4 +198,19 @@ function sortByDueDate () {
     invoiceDB.forEach(invoice => {
         outputInvoiceList.innerHTML += generateInvoiceRow(invoice);
     });
+}
+
+//calculates the total of sales
+function getTotalSales () {
+    let totalSalesValue;
+    let salesValueArray = invoiceDB.map((a) => {
+        return(a.value);
+    });
+
+    totalSalesValue = salesValueArray.reduce((a, b) => {
+        return (a + b);
+    });
+
+    console.log(totalSalesValue);
+    outputSalesTotal.innerHTML = totalSalesValue.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'});
 }
