@@ -141,3 +141,25 @@ function getCurrentValues () {
     });
 };
 
+//compare function
+function compareInvoiceNames (nameA, nameB) {
+    if(nameA.customer < nameB.customer){
+        return -1;
+    }
+    if (nameA.customer > nameB.customer){
+        return 1;
+    }
+
+    return 0;
+}
+
+function sortByCustomerName () {
+    invoiceDB.sort(compareInvoiceNames);
+    console.log(invoiceDB);
+
+    outputInvoiceList.innerHTML = "";
+
+    invoiceDB.forEach(invoice => {
+        outputInvoiceList.innerHTML += generateInvoiceRow(invoice);
+    });
+}
