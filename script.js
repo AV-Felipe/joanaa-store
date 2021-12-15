@@ -10,7 +10,7 @@ class invoice {
         this.lateFeeRules = lateFeeStandards.regularCustomer;
     }
     formatDate(){
-        debugger;
+        //debugger;
         let today = new Date();
         /*
         the nex three lines of code may be comented do disble the utc time compensation, tha is in nedd of some more tests
@@ -181,8 +181,44 @@ function sortByCustomerName () {
 
     outputInvoiceList.innerHTML = "";
 
+    //let clientValue =[invoiceDB[0].value];
     invoiceDB.forEach(invoice => {
-        outputInvoiceList.innerHTML += generateInvoiceRow(invoice);
+        
+
+        if(invoiceDB.indexOf(invoice) != 0){
+            if(invoice.customer.toUpperCase() != invoiceDB[invoiceDB.indexOf(invoice)-1].customer.toUpperCase()){
+                outputInvoiceList.innerHTML += `
+                <tr class="newInvoice">
+                    <td class="invoiceNumber"></td>
+                    <td class="invoiceIssueDate"></td>
+                    <td class="invoiceCustomer">${invoiceDB[invoiceDB.indexOf(invoice)-1].customer}</td>
+                    <td class="invoiceMainValue"></td>
+                    <td class="invoiceDueDate"></td>
+                    <td class="invoiceCurrentValue"></td>
+                    <td class="invoiceLateFee"></td>
+                </tr>
+                `
+            }
+        }
+        
+        if(invoiceDB.indexOf(invoice) === (invoiceDB.length -1)){
+            outputInvoiceList.innerHTML += generateInvoiceRow(invoice);
+            outputInvoiceList.innerHTML += `
+                <tr class="newInvoice">
+                    <td class="invoiceNumber"></td>
+                    <td class="invoiceIssueDate"></td>
+                    <td class="invoiceCustomer">${invoiceDB[invoiceDB.indexOf(invoice)].customer}</td>
+                    <td class="invoiceMainValue"></td>
+                    <td class="invoiceDueDate"></td>
+                    <td class="invoiceCurrentValue"></td>
+                    <td class="invoiceLateFee"></td>
+                </tr>
+                `
+        }else{
+            outputInvoiceList.innerHTML += generateInvoiceRow(invoice);
+        }
+        
+        
     });
 }
 
