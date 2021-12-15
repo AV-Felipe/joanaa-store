@@ -126,6 +126,7 @@ function saveInvoice () {
     
 }
 
+//ajustar função para ignorar as linhas de total (limpar display e imprimir array novamente)
 function getCurrentValues () {
     let indexCounter = 0;
     invoiceDB.map(oneInvoice => {
@@ -181,7 +182,7 @@ function sortByCustomerName () {
 
     outputInvoiceList.innerHTML = "";
 
-    //let clientValue =[invoiceDB[0].value];
+    let clientValue =[invoiceDB[0].value];
     invoiceDB.forEach(invoice => {
         
 
@@ -192,12 +193,15 @@ function sortByCustomerName () {
                     <td class="invoiceNumber"></td>
                     <td class="invoiceIssueDate"></td>
                     <td class="invoiceCustomer">${invoiceDB[invoiceDB.indexOf(invoice)-1].customer}</td>
-                    <td class="invoiceMainValue"></td>
+                    <td class="invoiceMainValue">${clientValue.reduce((a,b) => {return(a+b);}).toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'})}</td>
                     <td class="invoiceDueDate"></td>
                     <td class="invoiceCurrentValue"></td>
                     <td class="invoiceLateFee"></td>
                 </tr>
-                `
+                `;
+                clientValue = [];
+            }else{
+                clientValue.push(invoice.value);
             }
         }
         
@@ -208,7 +212,7 @@ function sortByCustomerName () {
                     <td class="invoiceNumber"></td>
                     <td class="invoiceIssueDate"></td>
                     <td class="invoiceCustomer">${invoiceDB[invoiceDB.indexOf(invoice)].customer}</td>
-                    <td class="invoiceMainValue"></td>
+                    <td class="invoiceMainValue">${clientValue.reduce((a,b) => {return(a+b);}).toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'})}</td>
                     <td class="invoiceDueDate"></td>
                     <td class="invoiceCurrentValue"></td>
                     <td class="invoiceLateFee"></td>
