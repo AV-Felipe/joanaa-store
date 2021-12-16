@@ -1,10 +1,9 @@
-Joana tem uma nova demanda, agrupar os títulos por cliente e data de vencimento. 
+Joana tem uma nova demanda, agrupar os títulos por cliente e data de vencimento. Para
+isso crie dois botões, um deles para agrupar e apresentar os títulos por cliente e outro para
+agrupar e apresentar os títulos por data de vencimento. Utilize o método reduce para exibir
+o valor total por cada cliente.
 
-Para isso crie dois botões, um deles para agrupar e apresentar os títulos por cliente e outro para agrupar e apresentar os títulos por data de vencimento. 
-
-Utilize o método reduce para executar o exercício.
-
-O uso do método reduce() é obrigatório. 
+O uso do método reduce() é obrigatório
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
 
