@@ -181,17 +181,23 @@ function compareInvoiceNames (nameA, nameB) {
     return 0;
 }
 
-
+//I could use the index value from the for each function, also i could implement a logic similar to the one used for the last element
+//in handling all array elements
 function sortByCustomerName () {
+    //sort elements in the array
     invoiceDB.sort(compareInvoiceNames);
-    console.log(invoiceDB);
+    //console.log(invoiceDB);
 
+    //render array elements on page with total debt for each customer
     outputInvoiceList.innerHTML = "";
 
-    let clientValue =[invoiceDB[0].value];
+    let clientValue =[invoiceDB[0].value]; //array, outside of the for each context, for managing the values for each customer
     invoiceDB.forEach(invoice => {
         //debugger;
 
+        //check if the current invoice customer is diferent from the previous, in which case creates a line for the total of
+        //the previous customer, generates the total with the values from the clientValue array, and clear this array content
+        //to store the values for the next customer
         if(invoiceDB.indexOf(invoice) != 0){
             if(invoice.customer.toUpperCase() != invoiceDB[invoiceDB.indexOf(invoice)-1].customer.toUpperCase()){
                 outputInvoiceList.innerHTML += `
@@ -212,6 +218,7 @@ function sortByCustomerName () {
             }
         }
         
+        //checks if the current invoice is the last one, if so, generates the total line for the current customer
         if(invoiceDB.indexOf(invoice) === (invoiceDB.length -1)){
             outputInvoiceList.innerHTML += generateInvoiceRow(invoice);
             outputInvoiceList.innerHTML += `
