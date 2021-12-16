@@ -126,8 +126,14 @@ function saveInvoice () {
     
 }
 
-//ajustar função para ignorar as linhas de total (limpar display e imprimir array novamente)
+
 function getCurrentValues () {
+    //debugger;
+    outputInvoiceList.innerHTML = "";
+    invoiceDB.forEach(invoice => {
+        outputInvoiceList.innerHTML += generateInvoiceRow(invoice);
+    });
+
     let indexCounter = 0;
     invoiceDB.map(oneInvoice => {
         const stringDueDate = new Date(`${oneInvoice.dueDate} 00:00:00`); //case we dont pass thee time, with date, we get an timezone difference in our parsed date
@@ -184,7 +190,7 @@ function sortByCustomerName () {
 
     let clientValue =[invoiceDB[0].value];
     invoiceDB.forEach(invoice => {
-        
+        //debugger;
 
         if(invoiceDB.indexOf(invoice) != 0){
             if(invoice.customer.toUpperCase() != invoiceDB[invoiceDB.indexOf(invoice)-1].customer.toUpperCase()){
@@ -200,6 +206,7 @@ function sortByCustomerName () {
                 </tr>
                 `;
                 clientValue = [];
+                clientValue = [invoice.value];
             }else{
                 clientValue.push(invoice.value);
             }
