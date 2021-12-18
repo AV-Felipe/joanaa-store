@@ -49,7 +49,7 @@ section {
 }
 
 #invoiceTable {
-    width: 46.875rem;
+    width: 47rem;
     border-collapse: collapse;
 }
 
@@ -84,5 +84,10 @@ th {
     flex-direction: column;
     row-gap: 5px;
     display: none;
+}
+@media (max-width: 840px){
+    .dropdownMenu{
+        left: calc(50% - 75px);
+    }
 }
 
