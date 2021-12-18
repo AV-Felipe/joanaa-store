@@ -71,6 +71,7 @@ const buttonAddInvoice = document.getElementById('addInvoice');
 const buttonUpdateValue = document.getElementById('updateValues');
 const buttonGetTotalSales = document.getElementById('getTotalValue');
 const buttonShowValueFilterMenu = document.getElementById('invoiceTable-valueFilterButton');
+const buttonFilterByValueRange = document.getElementById('invoiceTable-valueFilterField-filterButton');
 
 const tableHeaderName = document.getElementById('clientNameColumn');
 const tableHeaderDueDate = document.getElementById('dueDateColumn');
@@ -88,6 +89,9 @@ buttonGetTotalSales.addEventListener('click', getTotalSales);
 
 tableHeaderName.addEventListener('click', sortByCustomerName);
 tableHeaderDueDate.addEventListener('click', sortByDueDate);
+
+//modal elements
+buttonFilterByValueRange.addEventListener('click', filterByValueRange);
 
 // FUNCTIONS
 
@@ -322,4 +326,28 @@ function closeModal() {
     });
 
     
+}
+
+//FILTER BY VALUE
+
+function filterByValueRange() {
+    let filteredArray = invoiceDB.filter(valueRangeChecker);
+
+    function valueRangeChecker(element) {
+        const minValue = document.getElementById('minimumValueFilter').value;
+        const maxValue = document.getElementById('maximumValueFilter').value;
+
+        if(element.value >= minValue && element.value <= maxValue) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    outputInvoiceList.innerHTML = "";
+
+    filteredArray.forEach(element => {
+        outputInvoiceList.innerHTML += generateInvoiceRow(element);
+    });
+
 }
