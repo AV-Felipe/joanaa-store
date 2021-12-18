@@ -72,9 +72,10 @@ const buttonUpdateValue = document.getElementById('updateValues');
 const buttonGetTotalSales = document.getElementById('getTotalValue');
 const buttonShowValueFilterMenu = document.getElementById('invoiceTable-valueFilterButton');
 const buttonFilterByValueRange = document.getElementById('invoiceTable-valueFilterField-filterButton');
+const buttonFilterByDateRange = document.getElementById('invoiceTable-dueDateFilterField-filterButton');
 
-const tableHeaderName = document.getElementById('clientNameColumn');
-const tableHeaderDueDate = document.getElementById('dueDateColumn');
+const tableHeaderName = document.getElementById('clientValueColumnTitle');
+const tableHeaderDueDate = document.getElementById('dueDateColumnTitle');
 
 const outputInvoiceList = document.getElementById('invoiceList');
 outputInvoiceList.innerHTML = generateInvoiceRow(invoiceDB[0]);
@@ -92,6 +93,7 @@ tableHeaderDueDate.addEventListener('click', sortByDueDate);
 
 //modal elements
 buttonFilterByValueRange.addEventListener('click', filterByValueRange);
+buttonFilterByDateRange.addEventListener('click', filterByDateRange);
 
 // FUNCTIONS
 
@@ -328,7 +330,7 @@ function closeModal() {
     
 }
 
-//FILTER BY VALUE
+//Filter by value range
 
 function filterByValueRange() {
     let filteredArray = invoiceDB.filter(valueRangeChecker);
@@ -350,4 +352,33 @@ function filterByValueRange() {
         outputInvoiceList.innerHTML += generateInvoiceRow(element);
     });
 
+}
+
+//Filter by date range
+
+function filterByDateRange() {
+    let filteredArray = invoiceDB.filter(dateRangeChecker);
+
+    function dateRangeChecker(element) {
+        debugger;
+        const minValue = document.getElementById('minimumDueDateFilter').value;
+        const maxValue = document.getElementById('maximumDueDateFilter').value;
+
+        const givenDate = new Date (`${element.dueDate} 00:00:00`);
+        const minDate = new Date(`${minValue} 00:00:00`);
+        const maxDate = new Date (`${maxValue} 00:00:00`);
+        
+
+        if(givenDate >= minDate && givenDate <= maxDate) {
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    outputInvoiceList.innerHTML = "";
+
+    filteredArray.forEach(element => {
+        outputInvoiceList.innerHTML += generateInvoiceRow(element);
+    });
 }

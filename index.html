@@ -53,7 +53,7 @@
                         <th scope="col" id="clientNameColumn">Cliente</th>
                         <th scope="col" id="clientValueColumn">
                             <div class="tableHeaderTitle">
-                                Valor Original
+                                <span id="clientValueColumnTitle">Valor Original</span>
                                 <img id="invoiceTable-valueFilterButton"
                                     class="dropdownMenuIcon valueFilter"
                                     src="assets/images/dropdown-icon.svg"
@@ -70,7 +70,25 @@
                                 <button id="invoiceTable-valueFilterField-filterButton" type="button">Filtrar</button>
                             </div>
                         </th>
-                        <th scope="co" id="dueDateColumn">Vencimento</th>
+                        <th scope="co" id="dueDateColumn">
+                            <div class="tableHeaderTitle">
+                                <span id="dueDateColumnTitle">Vencimento</span>
+                                <img id="invoiceTable-dueDateFilterButton"
+                                    class="dropdownMenuIcon dueDateFilter"
+                                    src="assets/images/dropdown-icon.svg"
+                                    alt="clique para exibir o menu do filtro"
+                                    aria-haspopup="true"
+                                    onclick="displayFilterMenu('dueDateFilter')"
+                                />
+                            </div>
+                            <div id="invoiceTable-dueDateFilterField" class="dropdownMenu dueDateFilter">
+                                <label for="minimumDueDateFilter">Mínimo:</label>
+                                <input type="date" id="minimumDueDateFilter" />
+                                <label for="maximumDueDateFilter">Máximo:</label>
+                                <input type="date" id="maximumDueDateFilter" />
+                                <button id="invoiceTable-dueDateFilterField-filterButton" type="button">Filtrar</button>
+                            </div>
+                        </th>
                         <th scope="col">Valor Devido</th>
                         <th scope="col">Encargos</th>
                     </tr>
