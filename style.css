@@ -49,7 +49,7 @@ section {
 }
 
 #invoiceTable {
-    width: 42.1875rem;
+    width: 43.75rem;
     border-collapse: collapse;
 }
 
@@ -60,6 +60,29 @@ td, th {
 }
 
 th {
+    width: fit-content;
     padding-left: 10px;
     padding-right: 10px;
 }
+
+#clientNameColumn, #dueDateColumn {
+    cursor: pointer;
+}
+
+.dropdownMenuIcon {
+    width: 18px;
+    vertical-align: text-bottom;
+    cursor: pointer;
+}
+
+.dropdownMenu{
+    background-color: honeydew;
+    padding: 5px;
+    width: 150px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+    display: none;
+}
+

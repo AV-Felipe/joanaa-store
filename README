@@ -1,10 +1,11 @@
-Joana tem uma nova demanda, agrupar os títulos por cliente e data de vencimento. Para
-isso crie dois botões, um deles para agrupar e apresentar os títulos por cliente e outro para
-agrupar e apresentar os títulos por data de vencimento. Utilize o método reduce para exibir
-o valor total por cada cliente.
+Joana gostou muito dos seus serviços e continua nos demandando novos serviços, agora ela
+quer incluir uma forma de filtrar os títulos cadastrados. Para isso crie um formulário
+contendo os seguintes filtros:
+a. Data início;
+b. Data fim;
+c. Valor mínimo;
+d. Valor máximo;
 
-O uso do método reduce() é obrigatório
-
-https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
-
-https://raullesteves.medium.com/javascript-entendendo-o-reduce-de-uma-vez-por-todas-c4cbaa16e380
+*O valor máximo e mínimo, é referente ao valor do título sem juros.
+*A data referida, é a data de vencimento.
+*O uso do método filter() é obrigatório.

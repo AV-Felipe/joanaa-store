@@ -13,7 +13,7 @@ class invoice {
         //debugger;
         let today = new Date();
         /*
-        the nex three lines of code may be comented do disble the utc time compensation, tha is in nedd of some more tests
+        the next three lines of code may be comented do disble the utc time compensation, that is in need of some more tests
         for reference see: https://stackoverflow.com/questions/45779894/toisostring-changes-datetime-value
         and use: https://www.epochconverter.com/
         */
@@ -70,6 +70,7 @@ const formInputInvoice = document.getElementById('invoiceInputForm');
 const buttonAddInvoice = document.getElementById('addInvoice');
 const buttonUpdateValue = document.getElementById('updateValues');
 const buttonGetTotalSales = document.getElementById('getTotalValue');
+const buttonShowValueFilterMenu = document.getElementById('invoiceTable-valueFilterButton');
 
 const tableHeaderName = document.getElementById('clientNameColumn');
 const tableHeaderDueDate = document.getElementById('dueDateColumn');
@@ -126,7 +127,7 @@ function saveInvoice () {
     
 }
 
-
+//calculate the late fee for all elements
 function getCurrentValues () {
     //debugger;
     outputInvoiceList.innerHTML = "";
@@ -143,11 +144,11 @@ function getCurrentValues () {
 
         if(stringDueDate < stringCurrentDate){
             //get the number of due days
-            console.log('atrasado');
+            //console.log('atrasado');
             let daysLate = stringCurrentDate.getTime() - stringDueDate.getTime(); //converts the timestamp to unix date value (the result is in miliseconds)
             //console.log(daysLate);
             daysLate = Math.floor(daysLate / (1000 * 3600 * 24)); //converts to days, ignoring hour fractions
-            console.log(daysLate);
+            //console.log(daysLate);
 
             if(daysLate > 0){
                 const fineValue = oneInvoice.lateFeeRules.fine * oneInvoice.value;
@@ -278,4 +279,43 @@ function getTotalSales () {
 
     console.log(totalSalesValue);
     outputSalesTotal.innerHTML = totalSalesValue.toLocaleString('pt-BR',{style: 'currency', currency: 'BRL'});
+}
+
+//filter menu with modal
+
+function displayFilterMenu(menuToShow) {
+    
+    //select the menu element related to the cliqued button and display it
+    let menuArea = document.querySelector(`.dropdownMenu.${menuToShow}`);
+    menuArea.style.display = 'flex';
+
+    //defines the table where the button is as the modal area
+    const modal = document.getElementById(menuArea.parentNode.id);
+    //creates an variable to reference the click inside or outside logic (when outside, removes the listenner we will create next)
+    let eventReference = (event) => {
+        const isInside = modal.contains(event.target);
+        if(isInside){
+            console.log('clicou dentro');
+        }else{
+            console.log('clicou fora');
+            closeModal()
+            document.removeEventListener('click', eventReference);
+        }
+    };
+    //adds an event listener to handle the clicks while the modal is showing
+    document.addEventListener('click', eventReference)
+    
+}
+
+function closeModal() {
+    
+    let menuArea = document.querySelectorAll('.dropdownMenu');
+
+    menuArea.forEach(element => {
+        if(window.getComputedStyle(element).display === 'flex'){
+            element.style.display = 'none';
+        }
+    });
+
+    
 }
