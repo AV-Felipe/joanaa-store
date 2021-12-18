@@ -74,7 +74,7 @@ const buttonShowValueFilterMenu = document.getElementById('invoiceTable-valueFil
 const buttonFilterByValueRange = document.getElementById('invoiceTable-valueFilterField-filterButton');
 const buttonFilterByDateRange = document.getElementById('invoiceTable-dueDateFilterField-filterButton');
 
-const tableHeaderName = document.getElementById('clientValueColumnTitle');
+const tableHeaderName = document.getElementById('clientNameColumn');
 const tableHeaderDueDate = document.getElementById('dueDateColumnTitle');
 
 const outputInvoiceList = document.getElementById('invoiceList');
